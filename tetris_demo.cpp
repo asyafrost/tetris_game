@@ -39,9 +39,10 @@ public:
     std::pair<vector<Rect>, cv::Scalar> get_info(std::string piece, cv::Mat board) {
         cv::Scalar color;
         //фигура из блоков
-        vector<cv::Rect> blocks;
-        //сами блоки
         cv::Rect block1, block2, block3, block4;
+        vector<cv::Rect> blocks = { block1, block2, block3, block4 };
+        //сами блоки
+        
 
         int x = 0;
         int y = 0;
@@ -174,10 +175,13 @@ int display(cv::Mat& board, const vector<cv::Rect>& coords_tetris, const cv::Sca
             }
 */
 
-            if (coords_tetris[0].y > 80 && color != cv::Scalar(255, 155, 15))
+            if (coords_tetris[0].y > 40 && color != cv::Scalar(255, 155, 15))
             {
                 board(roi_3).setTo(cv::Scalar(0, 0, 0));
-                board(roi_4).setTo(cv::Scalar(0, 0, 0));
+                if (coords_tetris[0].y > 60 && color != cv::Scalar(255, 155, 15))
+                {
+                    board(roi_4).setTo(cv::Scalar(0, 0, 0));
+                }
             }
         }
 
@@ -359,7 +363,7 @@ int main() {
                     
                     //идет проверка загятости верхних строк
                     bool isNotEmpty = false;
-                    for (int i = 0; i < 20; i++)
+                    for (int i = 0; i < 40; i++)
                     {
                         bool rowNotEmpty = false;
                         for (int j = 0; j < board.cols; j++) {
